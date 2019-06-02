@@ -5,4 +5,5 @@ Scatterplot exploring the relationship between poverty rate and lack of health c
 
 `python -m http.server` is needed to run the visualization at `localhost:8000`. 
 
-![4-scatter](Images/4-scatter.jpg)
+Output figure:
+![output](Images/output.png)

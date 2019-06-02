@@ -80,8 +80,8 @@ function makeResponsive(){
 
     //Add axis labels
     svg.append("text")
-      .attr("x", width)
-      .attr("y", height+margin.top +40)
+      .attr("x", width+margin.left-220)
+      .attr("y", height+margin.top+40)
       .style('text-anchor',"middle")
       .text("In Poverty (%)")
       .attr("font-size","18px")
@@ -90,7 +90,7 @@ function makeResponsive(){
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr('y', 0-margin.left+740)
-      .attr('x', 0-(height)+130)
+      .attr('x', 0-(height)+10)
       .attr("dy", "1em")
       .style('text-anchor',"middle")
       .text("Lacks Healthcare (%)")
