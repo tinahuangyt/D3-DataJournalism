@@ -65,7 +65,7 @@ function makeResponsive(){
       .attr("opacity", 0.7)
 
     //Add scatter labels  
-    chartGroup.append('text').selectAll('tspan')
+    var circlesGroup = chartGroup.append('text').selectAll('tspan')
       .data(data)
       .enter()  
       .append("tspan")
@@ -80,8 +80,8 @@ function makeResponsive(){
 
     //Add axis labels
     svg.append("text")
-      .attr("x", width+margin.left-220)
-      .attr("y", height+margin.top+40)
+      .attr("x", width/2+400)
+      .attr("y", height+margin.bottom+50)
       .style('text-anchor',"middle")
       .text("In Poverty (%)")
       .attr("font-size","18px")
@@ -90,7 +90,7 @@ function makeResponsive(){
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr('y', 0-margin.left+740)
-      .attr('x', 0-(height)+10)
+      .attr('x', 0-(height)+25)
       .attr("dy", "1em")
       .style('text-anchor',"middle")
       .text("Lacks Healthcare (%)")
@@ -98,29 +98,23 @@ function makeResponsive(){
       .attr("font-weight","bold");
 
 
-
-
     //Append tooltip div
-    var toolTip = d3.select("body")
-    .append("div").classed("tooltip", true);
-    
-    //Add mouseover event to display tooltip
-
-    circlesGroup.on("mouseover", function(d, i) {
-      toolTip.style("display", "block");
-      toolTip.html(`State: <strong>${d.poverty}</strong>`)
-        .style("left", d3.event.pageX + "px")
-        .style("top", d3.event.pageY + "px");
-    })
-    
-    //Add an onmouseout event to make the tooltip invisible
-      .on("mouseout", function() {
-        toolTip.style("display", "none");
-      });
-    
-
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .offset([80, -60]) 
+        .html(function(d) {
+          return (`<strong>Poverty rate: ${d.poverty}%;<p>
+          Without healthcare: ${d.healthcare}%`);
+        })
   
     
+    chartGroup.call(toolTip);
+    circlesGroup.on("mouseover", function(d){
+      toolTip.show(d, this);
+    })
+      .on("mouseout", function(data, index){
+        toolTip.hide(data);
+      });
   });
 }
 
